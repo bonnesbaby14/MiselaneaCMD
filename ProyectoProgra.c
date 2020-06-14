@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 //Este proyecto tiene como propósito principal llevar el control de un consultorio, teniendo dos structs
 // Uno el cual es de las consultas y el otro de los clientes.
@@ -35,6 +36,7 @@ void registrarClientes(clientes cliente[], int * auxCl);
 void buscarClientes();
 void eliminarClientes();
 void mostrarClientes();
+void cargando();
 
 void menuConsultas();
 void registrarConsulta(consultas consulta[], int * auxCon);
@@ -43,6 +45,7 @@ void eliminarConsulta();
 void mostrarConsulta();
 
 int main(int argc, char * argv[]) {
+pantallaCarga();
   int opc;
 
   do {
@@ -65,8 +68,9 @@ int main(int argc, char * argv[]) {
     }
 
   } while (opc != 3);
-  printf("Saliendo del programa... \n");
-  system("pause");
+  printf("Saliendo del programa ");
+  
+  cargando();
   return 0;
 }
 
@@ -130,6 +134,7 @@ void registrarClientes(clientes cliente[], int * auxCl) {
 
   } else {
     printf("Ya no se pueden agregar más clientes \n");
+    getch();
   }
 }
 
@@ -181,6 +186,7 @@ void buscarClientes() {
   }
   if (flagCli == 0) {
     printf("--- No se encontro al cliente --- \n");
+    getch();
   }
 }
 
@@ -188,7 +194,7 @@ void eliminarClientes() {
   int numero, opc;
   flagCli = 0;
 
-  printf("Ingrese el numero del cliente: :c \n");
+  printf("Ingrese el numero del cliente:\n");
   scanf("%d", &numero);
 
   for (i = 0; i <= auxCl - 1; i++) {
@@ -208,7 +214,8 @@ void eliminarClientes() {
       scanf("%i", & opc);
       if (opc == 1) {
 		
-        printf("Eliminando cliente... \n");
+        printf("Eliminando cliente");
+        cargando();
         while(i<auxCl){
         	cliente[i]=cliente[i+1];
         	i++;
@@ -219,6 +226,7 @@ void eliminarClientes() {
   }
   if (flagCli == 0) {
     printf("--- No se encontro al cliente --- \n");
+    getch();
   }
 }
 
@@ -303,6 +311,7 @@ void registrarConsulta(consultas consulta[], int * auxCon) {
 
   } else {
     printf("Ya no se pueden agregar más consultas \n");
+    getch();
   }
 }
 
@@ -355,6 +364,7 @@ void buscarConsulta() {
   }
   if (flagCon == 0) {
     printf("--- No se encontro la consulta --- \n");
+    getch();
   }
 }
 
@@ -379,7 +389,8 @@ void eliminarConsulta() {
       scanf("%i", & opc);
       if (opc == 1) {
 
-        printf("Eliminando consulta... \n");
+        printf("Eliminando consulta");
+        cargando();
         while(i<auxCon){
         	consulta[i]=consulta[i+1];
         	i++;
@@ -390,6 +401,7 @@ void eliminarConsulta() {
   }
   if (flagCon == 0) {
     printf("--- No se encontro la consulta --- \n");
+    getch();
   }
 }
 
@@ -403,10 +415,35 @@ void mostrarConsulta() {
       printf("Fecha: %s \n", consulta[i].fecha);
       printf("Hora: %s \n", consulta[i].hora);
       printf("---------------------------------- \n");
-      getch();
+   
     }
+       getch();
   } else {
     printf("Sin consultas capturadas \n");
   	getch();
   }
+}
+
+void cargando(){
+	int x=0;
+	while(x<5){
+		printf(".");
+		Sleep(400);
+		x++;
+	}
+}
+
+void pantallaCarga(){
+	int segundos=5;
+	int i;
+    for(i=0; i<=21; i++)
+        printf("\n");
+    printf ("\t\t\t\t   CARGANDO...\n");
+   
+    for(i=0; i<=79; i++)
+    {
+        printf("%c",219);
+        Sleep(segundos*1000/80);
+    }
+    printf("\nCompletado!");
 }
